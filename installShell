@@ -1,5 +1,6 @@
 #!/bin/bash
-var=$1
+echo "apk address:"
+read var  
 adb devices > tmp.txt
 while read line
 do
@@ -12,6 +13,6 @@ if [ $dev_id = List ]
 then
 continue
 fi
-adb -s $dev_id install -r $1
+adb -s $dev_id install -r $var
 done < tmp.txt
 rm tmp.txt
