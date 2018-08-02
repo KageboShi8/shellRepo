@@ -1,0 +1,17 @@
+#!/bin/bash
+var=$1
+adb devices > tmp.txt
+while read line
+do
+dev_id=`echo $line|awk '{print $1}'`
+if [ -z $dev_id ]
+then 
+break
+fi
+if [ $dev_id = List ]
+then
+continue
+fi
+adb -s $dev_id install -r $1
+done < tmp.txt
+rm tmp.txt
