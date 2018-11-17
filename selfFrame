@@ -1,0 +1,79 @@
+#!/bin/bash
+
+#app address
+
+#echo "wechat_address:"
+#read wechat_var
+
+#echo "contact_address:"
+#read contact_var
+
+#echo "xunfei_address"
+#read xunfei_var
+
+#name&password
+
+#echo "name"
+#read name
+#echo password
+#read password
+
+#uninstall app
+#echo uninstallName
+#read packageName
+
+adb devices|tail -n +2 > tmpF.txt
+while read line
+do
+dev_id=`echo $line|awk '{print $1}'`
+if [ -z $dev_id ]
+then 
+break
+fi
+
+#power on
+
+#state=`adb -s $dev_id shell dumpsys power|grep 'Display Power'|awk '{print $NF}'|awk -F '=' '{print $NF}'`
+#if [ "OFF" = "$state" ]
+#then
+#adb -s $dev_id shell input keyevent 26
+#adb -s $dev_id shell input swipe 360 1000 360 500
+#fi
+
+#install start
+#wechat
+adb -s $dev_id install -r /home/kageboshi/桌面/weixin667.apk
+
+#myContacts
+adb -s $dev_id install -r /home/kageboshi/桌面/app-debug1.7.apk
+
+#xunFei
+adb -s $dev_id install -r /home/kageboshi/桌面/com.iflytek.inputmethod_7779.apk
+
+#uninstall xunFei.gionee
+#adb -s $dev_id uninstall com.iflytek.inputmethod.gionee
+
+#uninstall
+#adb -s $dev_id uninstall $packageName
+
+#download contacts
+
+#home
+#adb -s $dev_id shell input keyevent 3
+#open contacts
+#adb -s $dev_id shell am start  com.example.kageboshi.contacts_debug/com.example.kageboshi.contacts_debug.activity.MainActivity
+
+#tap permission 1
+#adb -s $dev_id shell input tap 550 1300
+#tap login
+#adb -s $dev_id shell input tap 360 680
+#tap permission 2
+#adb -s $dev_id shell input tap 550 1300
+#tap download
+#adb -s $dev_id shell input tap 200 1075
+#tap clear
+#adb -s $dev_id shell input tap 550 1075
+
+
+done < tmpF.txt
+rm tmpF.txt
